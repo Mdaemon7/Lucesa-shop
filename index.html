@@ -203,7 +203,75 @@
             <a href="auth/login.html" class="nav-item nav-link nav-login">Iniciar sesión</a>
 
             <!-- 🔧 Menú usuario dinámico -->
-            <div id="userMenuContainer" class="dropdown ms-3"></div>
+            <div id="userMenuContainer" class="dropdown ms-3"><a 
+    id="userDropdown" 
+    href="#" 
+    class="d-flex align-items-center text-dark text-decoration-none"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+      <!-- Avatar circular -->
+      <div id="userAvatar" 
+           class="rounded-circle d-flex justify-content-center align-items-center"
+           style="width: 40px; height: 40px; background:#e8caca; color:#7a4f4f; font-weight:600;">
+      </div>
+
+      <!-- Nombre -->
+      <span id="userNameDisplay" class="ms-2" style="font-size:16px;"></span>
+
+      <!-- Flecha -->
+      <i class="fa fa-chevron-down ms-1"></i>
+  </a>
+
+  <!-- MENÚ -->
+  <ul class="dropdown-menu dropdown-menu-end shadow">
+
+    <li class="dropdown-header px-3 py-2" id="userGreeting">
+      👋 Hola, usuario
+    </li>
+
+    <li><hr class="dropdown-divider"></li>
+
+    <li>
+      <a class="dropdown-item" href="#">
+        <i class="fa fa-user me-2"></i> Mi perfil
+      </a>
+    </li>
+
+    <li>
+      <a class="dropdown-item" href="#">
+        <i class="fa fa-box-open me-2"></i> Mis pedidos
+      </a>
+    </li>
+
+    <li>
+      <a class="dropdown-item" href="#">
+        <i class="fa fa-credit-card me-2"></i> Métodos de pago
+      </a>
+    </li>
+
+    <li>
+      <a class="dropdown-item" href="#">
+        <i class="fa fa-cog me-2"></i> Configuración
+      </a>
+    </li>
+
+    <li>
+      <a class="dropdown-item" href="#">
+        <i class="fa fa-lock me-2"></i> Cambiar contraseña
+      </a>
+    </li>
+
+    <li><hr class="dropdown-divider"></li>
+
+    <li>
+      <a class="dropdown-item text-danger fw-bold" href="#" id="logout-btn-style">
+        <i class="fa fa-sign-out-alt me-2"></i> Cerrar sesión
+      </a>
+    </li>
+
+  </ul>
+</div>
           </div>
         </div>
       </nav>
@@ -966,6 +1034,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const container = document.getElementById("userMenuContainer");
+
+    // Si NO hay usuario → ocultar menú
+    if (!user) {
+        container.style.display = "none";
+        return;
+    }
+
+    // Si hay usuario → mostrar menú
+    container.style.display = "block";
+
+    const avatar = document.getElementById("userAvatar");
+    const nameLabel = document.getElementById("userNameDisplay");
+    const greeting = document.getElementById("userGreeting");
+
+    // Inicial para avatar
+    avatar.innerText = user.name.charAt(0).toUpperCase();
+
+    // Nombre al lado del círculo
+    nameLabel.innerText = user.name;
+
+    // Saludo del menú
+    greeting.innerHTML = `👋 Hola, ${user.name}`;
+
+    // Evento de cerrar sesión
+    document.getElementById("logout-btn-style").addEventListener("click", () => {
+        localStorage.removeItem("user");
+        window.location.href = "/auth/login.html";
+    });
+});
+</script>
+
 
 
 
