@@ -1,0 +1,19 @@
+{
+  "name": "lucesa-shop-template",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@netlify/neon": "^0.1.0",
+    "bcryptjs": "^3.0.3"
+  }
+}
