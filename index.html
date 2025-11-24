@@ -924,6 +924,50 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const container = document.getElementById("userMenuContainer");
+
+    // 🔹 Si no hay usuario logueado ➝ mostrar botones de login y registro
+    if (!user) {
+        document.querySelector(".nav-register").style.display = "block";
+        document.querySelector(".nav-login").style.display = "block";
+        container.innerHTML = "";
+        return;
+    }
+
+    // 🔹 Si hay usuario logueado ➝ ocultar login y registro
+    document.querySelector(".nav-register").style.display = "none";
+    document.querySelector(".nav-login").style.display = "none";
+
+    // 🔹 Crear avatar (la letra inicial del usuario)
+    const firstLetter = user.name.charAt(0).toUpperCase();
+
+    container.innerHTML = `
+      <a class="btn btn-primary rounded-circle text-white d-flex align-items-center justify-content-center"
+         id="userDropdown" href="#" role="button" data-bs-toggle="dropdown"
+         style="width: 40px; height: 40px; font-size: 18px;">
+         ${firstLetter}
+      </a>
+
+      <ul class="dropdown-menu dropdown-menu-end mt-2">
+          <li><a class="dropdown-item" href="#">Mi cuenta</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" id="logout-btn" href="#">Cerrar sesión</a></li>
+      </ul>
+    `;
+
+    // 🔹 Evento de cerrar sesión
+    document.getElementById("logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("user");
+        window.location.href = "auth/login.html";
+    });
+});
+</script>
+
+
 
 </body>
 
